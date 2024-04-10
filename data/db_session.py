@@ -2,6 +2,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import Session
 
+import log_functions
 from log_functions.outs import log_exception
 
 SqlAlchemyBase = orm.declarative_base()
@@ -20,8 +21,7 @@ def global_init(db_file):
         raise Exception("empty name")
 
     conn_str = f'sqlite:///{db_file.strip()}?check_same_thread=False'
-    print(f"connect {conn_str}")
-
+    log_functions.log_information(f"connect {conn_str}")
     engine = sa.create_engine(conn_str, echo=False)
     __factory = orm.sessionmaker(bind=engine)
 

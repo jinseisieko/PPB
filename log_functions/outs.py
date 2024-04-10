@@ -4,7 +4,7 @@ import datetime
 def __add_time_decorator(func):
     def wrapper(text: str):
         time = datetime.datetime.now()
-        text = text + f"\t[{time}]"
+        text = f"[{time}]\t" + text
         return func(text)
 
     return wrapper
