@@ -122,3 +122,9 @@ information:	Bot Ready	[2024-04-10 15:52:26.590801]
 [information]	[2024-04-10 18:15:40.950637]	Start main.py
 [information]	[2024-04-10 18:15:40.950637]	connect sqlite:///db/PPB.db?check_same_thread=False
 [information]	[2024-04-10 18:15:44.598476]	Bot Is Ready!!!
+[information]	[2024-04-10 18:18:19.200778]	Start main.py
+[information]	[2024-04-10 18:18:19.200778]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-10 18:18:22.430923]	Bot Is Ready!!!
+[information]	[2024-04-10 18:18:30.167928]	Start main.py
+[information]	[2024-04-10 18:18:30.167928]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-10 18:18:33.287669]	Bot Is Ready!!!

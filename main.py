@@ -1,5 +1,3 @@
-import os
-
 from discord import Embed, Color
 
 import log_functions
@@ -13,7 +11,7 @@ from config import config
 def main():
     intents = discord.Intents.default()
     intents.message_content = True
-    bot = commands.Bot(command_prefix='.', intents=intents)
+    bot = commands.Bot(command_prefix='->', intents=intents)
 
     @bot.event
     async def on_ready():
