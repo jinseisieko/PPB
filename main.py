@@ -23,15 +23,8 @@ def main():
 
         await user.send(embed=embed)
 
-        guild = await bot.fetch_guild(config['guild_id'])
-        for channel in guild.channels:
-            print(channel.name)
-            if channel.name == 'bot':
-                await channel.send(embed=embed)
-
     @bot.command()
     async def ping(ctx):
-        log_functions.log_information(str(ctx.guild.id))
         await ctx.send('pong')
 
     bot.run(config['token'])
