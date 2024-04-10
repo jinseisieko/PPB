@@ -1,28 +1,44 @@
 import os
 
+from discord import Embed, Color
+
 import log_functions
 from data import db_session
 
 import discord
 from discord.ext import commands
-from dislash import InteractionClient
-
+from config import config
 
 
 def main():
     intents = discord.Intents.default()
     intents.message_content = True
-    bot = commands.Bot(command_prefix='/', intents=intents)
+    bot = commands.Bot(command_prefix='.', intents=intents)
+
+    @bot.event
+    async def on_ready():
+        log_functions.log_information("Bot Is Ready!!!")
+        user = await bot.fetch_user(config['user_id'])
+        embed = Embed(title="Bot Is Ready!!!", colour=Color.from_rgb(0, 255, 0))
+
+        await user.send(embed=embed)
+
+        guild = await bot.fetch_guild(config['guild_id'])
+        for channel in guild.channels:
+            print(channel.name)
+            if channel.name == 'bot':
+                await channel.send(embed=embed)
 
     @bot.command()
     async def ping(ctx):
+        log_functions.log_information(str(ctx.guild.id))
         await ctx.send('pong')
 
-    bot.run('MTIyNzU5MjU3MjIzNTQxNTU5Mg.GwHZrl.CFfnVkVhHpweL133vxEzRGugrxQNDy4uYSbqYo')
+    bot.run(config['token'])
 
 
 if __name__ == '__main__':
-    intents = discord.Intents.default()
+    log_functions.log_information("Start main.py")
     db_session.global_init("db/PPB.db")
-    log_functions.log_information("Start")
+
     main()
