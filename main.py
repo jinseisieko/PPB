@@ -25,6 +25,14 @@ def main():
     async def ping(ctx):
         await ctx.send('pong')
 
+        def check(m):
+            return m.author.id == ctx.author.id
+
+        answer = await bot.wait_for('message', check=check)
+        answer = answer.content
+        if answer == "aboba":
+            await ctx.channel.send(':)')
+
     bot.run(config['token'])
 
 

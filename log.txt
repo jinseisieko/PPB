@@ -128,3 +128,15 @@ information:	Bot Ready	[2024-04-10 15:52:26.590801]
 [information]	[2024-04-10 18:18:30.167928]	Start main.py
 [information]	[2024-04-10 18:18:30.167928]	connect sqlite:///db/PPB.db?check_same_thread=False
 [information]	[2024-04-10 18:18:33.287669]	Bot Is Ready!!!
+[information]	[2024-04-10 18:33:31.150344]	Start main.py
+[information]	[2024-04-10 18:33:31.151344]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-10 18:33:34.486555]	Bot Is Ready!!!
+[information]	[2024-04-10 18:35:29.469350]	Start main.py
+[information]	[2024-04-10 18:35:29.470348]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-10 18:35:33.075726]	Bot Is Ready!!!
+[information]	[2024-04-10 18:36:05.389135]	Start main.py
+[information]	[2024-04-10 18:36:05.389135]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-10 18:36:08.673382]	Bot Is Ready!!!
+[information]	[2024-04-10 18:37:44.955291]	Start main.py
+[information]	[2024-04-10 18:37:44.955291]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-10 18:37:48.683716]	Bot Is Ready!!!
