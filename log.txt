@@ -140,3 +140,21 @@ information:	Bot Ready	[2024-04-10 15:52:26.590801]
 [information]	[2024-04-10 18:37:44.955291]	Start main.py
 [information]	[2024-04-10 18:37:44.955291]	connect sqlite:///db/PPB.db?check_same_thread=False
 [information]	[2024-04-10 18:37:48.683716]	Bot Is Ready!!!
+[information]	[2024-04-13 15:02:56.529937]	Start main.py
+[information]	[2024-04-13 15:02:56.529937]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-13 15:03:00.179338]	Bot Is Ready!!!
+[information]	[2024-04-13 15:04:31.222924]	Start main.py
+[information]	[2024-04-13 15:04:31.222924]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-13 15:04:35.086337]	Bot Is Ready!!!
+[information]	[2024-04-13 17:03:25.627782]	Start main.py
+[information]	[2024-04-13 17:03:25.627782]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-13 17:03:28.944768]	Bot Is Ready!!!
+[information]	[2024-04-13 17:04:02.977740]	Start main.py
+[information]	[2024-04-13 17:04:02.977740]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-13 17:04:06.466086]	Bot Is Ready!!!
+[information]	[2024-04-13 17:04:29.454528]	Start main.py
+[information]	[2024-04-13 17:04:29.454528]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-13 17:04:32.747165]	Bot Is Ready!!!
+[information]	[2024-04-13 17:06:28.683109]	Start main.py
+[information]	[2024-04-13 17:06:28.683109]	connect sqlite:///db/PPB.db?check_same_thread=False
+[information]	[2024-04-13 17:06:31.875230]	Bot Is Ready!!!
