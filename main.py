@@ -190,7 +190,7 @@ def main():
                     colour=Color.from_str(game_color))
         await ctx.send(embed=tmp)
 
-        cities = json.load(open("data/cities.json", "r", encoding="utf-8"))
+        cities = json.load(open("cities.json", "r", encoding="utf-8"))
         cities[0] = collections.defaultdict(lambda: "", cities[0])
         was = set()
         counter = 0
