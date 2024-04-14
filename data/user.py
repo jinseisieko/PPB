@@ -9,7 +9,7 @@ class User(SqlAlchemyBase):
                            primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    discord = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    discord = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, unique=True)
 
     games = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     wins = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
