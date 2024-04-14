@@ -92,13 +92,13 @@ def main():
         previous = "Лихославль"
 
         while True:
-            answer = await bot.wait_for('message', check=check)
-            answer = answer.content
-            res = check_rules(cities, was, previous, answer)
-            tmp_previous = answer
-            # time.sleep(2)
-            # res = 0
-            # tmp_previous = previous
+            # answer = await bot.wait_for('message', check=check)
+            # answer = answer.content
+            # res = check_rules(cities, was, previous, answer)
+            # tmp_previous = answer
+            time.sleep(0)
+            res = 0
+            tmp_previous = previous
             if res == 0:
                 previous = tmp_previous
                 for x in reversed(previous.upper()):
