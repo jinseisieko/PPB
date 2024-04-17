@@ -4,109 +4,102 @@ import random
 
 from discord import Embed, Color
 
-import log_functions
 from data import db_session
-from data.functions import registration_user, check_
-from data.user import User
+from data.functions import registration_user, check_, profile_user
 
 import discord
 from discord.ext import commands
 from config import config
 
+import logging
 
-async def check_user(discord, bot):
-    if await check_(discord):
-        print(123123)
-        return False
-    else:
-        user = await bot.fetch_user(discord)
-        embed = Embed(title="Регистрация!!!", colour=Color.from_rgb(0, 255, 0))
-        await user.send(embed=embed)
-        return True
-
-
-process = set()
-
-
-def process_check(ctx):
-    if ctx.author.id in process:
-        # await ctx.send("Вы уже находитесь в игре")
-        return False
-    else:
-        process.add(ctx.author.id)
-        return True
+from data.user import User
+from messages import Embeds
 
 
 def main():
+    logger = logging.getLogger('discord')
+    logger.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+    logger.addHandler(handler)
+
     intents = discord.Intents.default()
     intents.message_content = True
     bot = commands.Bot(command_prefix='.', intents=intents)
 
-    @bot.event
-    async def on_ready():
-        # user = User(name="aboba")
-        # user.discord = config["user_id"]
-        # db_sess = db_session.create_session()
-        #
-        # db_sess.add(user)
-        # db_sess.commit()
+    async def check_valid_message(content):
+        if content.startswith('.'):
+            return False
+        return True
 
-        log_functions.log_information("Bot Is Ready!!!")
-        user = await bot.fetch_user(config['user_id'])
-        embed = Embed(title="Bot Is Ready!!!", colour=Color.from_rgb(0, 255, 0))
+    async def check_user(id_, message=True):
+        if await check_(id_):
+            return False
+        else:
+            if message:
+                user = await bot.fetch_user(id_)
+                await user.send(embed=Embeds.check_user())
+            return True
 
-        await user.send(embed=embed)
-
-    @bot.command()
-    async def stop(ctx):
-        process.discard(ctx.author.id)
-        bot.clear()
-
-
-
-    @bot.command()
-    @discord.ext.commands.dm_only()
-    async def registration(ctx):
-        if not await check_user(ctx.author.id, bot):
-            embed = Embed(title="Вы зарегистрированы", colour=Color.from_rgb(0, 255, 0))
-            await ctx.send(embed=embed)
-            return
-
+    async def standard_answer(ctx):
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
 
-        embed = Embed(title="Начать регистрацию\nВведите отображаемое имя: ", colour=Color.from_rgb(0, 255, 0))
-        await ctx.send(embed=embed)
+        answer = await bot.wait_for('message', check=check, timeout=30)
+        answer = answer.content
+        return answer
 
-        name = await bot.wait_for('message', check=check, timeout=30)
-        name = name.content
-        embed = Embed(title=f"Ваше отображаемое имя: {name}!\nВведите статус:", colour=Color.from_rgb(0, 255, 0))
+    @bot.event
+    async def on_ready():
+        logger.info("Bot Is Ready!!!")
+        user = await bot.fetch_user(config['user_id'])
+        await user.send(embed=Embeds.on_ready())
 
-        await ctx.send(embed=embed)
+    @bot.command(name="registration")
+    @discord.ext.commands.dm_only()
+    async def registration(ctx):
+        if not await check_user(ctx.author.id, message=False):
+            await ctx.send(embed=Embeds.registration(0))
+            return
 
-        about = await bot.wait_for('message', check=check, timeout=30)
-        about = about.content
-        embed = Embed(title=f"Ваш статус: {about}\nКонец Регистрации", colour=Color.from_rgb(0, 255, 0))
-        await ctx.send(embed=embed)
+        await ctx.send(embed=Embeds.registration(1))
 
-        user, register_ = await registration_user(name, about, ctx.author.id)
-        print(user.id, user.name, user.about, user.discord, register_)
+        name = await standard_answer(ctx)
+        if not await check_valid_message(name):
+            return
+        await ctx.send(embed=Embeds.registration(2, name=name))
 
-    @bot.command()
-    @discord.ext.commands.check(process_check)
+        about = await standard_answer(ctx)
+        if not await check_valid_message(about):
+            return
+
+        await registration_user(name, about, ctx.author.id)
+        await ctx.send(embed=Embeds.registration(3, about=about))
+
+    @bot.command(name="profile")
+    async def profile(ctx):
+        if await check_user(ctx.author.id):
+            return
+
+        user: User = await profile_user(ctx.author.id)
+        await ctx.send(embed=Embeds.profile(user=user))
+
+    @bot.command(name="profile_by_id")
+    async def profile_by_id(ctx, id_):
+        if await check_user(id_, message=False):
+            await ctx.send(embed=Embeds.profile_by_id(0, id=id_))
+            return
+
+        user: User = await profile_user(ctx.author.id)
+        await ctx.send(embed=Embeds.profile_by_id(1, user=user))
+
+    @bot.command(name="ping")
     async def ping(ctx):
-        if await check_user(ctx.author.id, bot):
+        if await check_user(ctx.author.id):
             return
 
         await ctx.send('pong')
-
-        def check(m):
-            return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
-
-        answer = await bot.wait_for('message', check=check)
-        answer = answer.content
-        if answer == "aboba":
-            await ctx.channel.send(':)')
 
     @bot.command(name="coin")
     async def heads_or_tails(ctx):
@@ -165,7 +158,6 @@ def main():
         await ctx.send(embed=tmp)
 
     @bot.command(name="cities")
-    @discord.ext.commands.check(process_check)
     async def cities(ctx):
         game_color = "#2A32D4"
 
@@ -211,7 +203,7 @@ def main():
                     colour=Color.from_str(game_color))
         await ctx.send(embed=tmp)
 
-        cities = json.load(open("cities.json", "r", encoding="utf-8"))
+        cities = json.load(open("resources/cities.json", "r", encoding="utf-8"))
         cities[0] = collections.defaultdict(lambda: "", cities[0])
         was = set()
         counter = 0
@@ -286,7 +278,5 @@ def main():
 
 
 if __name__ == '__main__':
-    log_functions.log_information("Start main.py")
     db_session.global_init("db/PPB.db")
-
     main()
