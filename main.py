@@ -285,10 +285,6 @@ def main():
                 await ctx.send(embed=tmp)
                 break
 
-    @bot.command(name="stop")
-    async def stop(ctx):
-        heads_or_tails.ca
-
     bot.run(config['token'])
 
 
