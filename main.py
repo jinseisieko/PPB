@@ -1,6 +1,7 @@
 import collections
 import json
 import random
+import time
 
 from discord import Embed, Color
 
@@ -195,16 +196,16 @@ def main():
         was = set()
         counter = 0
         score = 0
-        previous = "_"
+        previous = "Абаза   "
 
         while True:
-            answer = await bot.wait_for('message', check=check)
-            answer = answer.content
-            res = check_rules(cities, was, previous, answer)
-            tmp_previous = answer
-            # time.sleep(0)
-            # res = 0
-            # tmp_previous = previous
+            # answer = await bot.wait_for('message', check=check)
+            # answer = answer.content
+            # res = check_rules(cities, was, previous, answer)
+            # tmp_previous = answer
+            time.sleep(0)
+            res = 0
+            tmp_previous = previous
             if res == 0:
                 previous = tmp_previous
                 for x in reversed(previous.upper()):
@@ -218,7 +219,8 @@ def main():
                         tmp = Embed(title=word, description=f"Этот город имеет население {city['population']} чел.\n"
                                                             f"Расположен на территории этого субъекта: {city['subject']}\n"
                                                             f"На координатах {city['coords']['lat']}, {city['coords']['lon']}\n"
-                                                            f"[Читать на википедии](https://ru.wikipedia.org/wiki/{word.replace(' ', '_')})",
+                                                            f"[Читать на википедии](https://ru.wikipedia.org/wiki/{word.replace(' ', '_')})"
+                                                            f"@everyone",
                                     colour=Color.from_str(game_color))
                         await ctx.send(embed=tmp)
                         previous = word
@@ -228,6 +230,7 @@ def main():
                                 description=f"**Игра завершена со счётом: {score}**",
                                 colour=Color.from_str(game_color))
                     await ctx.send(embed=tmp)
+                    break
 
                 score += 1
             elif res == 1:
@@ -260,6 +263,10 @@ def main():
                             colour=Color.from_str(game_color))
                 await ctx.send(embed=tmp)
                 break
+
+    @bot.command(name="stop")
+    async def stop(ctx):
+        heads_or_tails.ca
 
     bot.run(config['token'])
 
