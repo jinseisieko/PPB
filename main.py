@@ -26,6 +26,18 @@ async def check_user(discord, bot):
         return True
 
 
+process = set()
+
+
+def process_check(ctx):
+    if ctx.author.id in process:
+        # await ctx.send("Вы уже находитесь в игре")
+        return False
+    else:
+        process.add(ctx.author.id)
+        return True
+
+
 def main():
     intents = discord.Intents.default()
     intents.message_content = True
@@ -45,6 +57,13 @@ def main():
         embed = Embed(title="Bot Is Ready!!!", colour=Color.from_rgb(0, 255, 0))
 
         await user.send(embed=embed)
+
+    @bot.command()
+    async def stop(ctx):
+        process.discard(ctx.author.id)
+        bot.clear()
+
+
 
     @bot.command()
     @discord.ext.commands.dm_only()
@@ -75,6 +94,7 @@ def main():
         print(user.id, user.name, user.about, user.discord, register_)
 
     @bot.command()
+    @discord.ext.commands.check(process_check)
     async def ping(ctx):
         if await check_user(ctx.author.id, bot):
             return
@@ -146,6 +166,7 @@ def main():
         await ctx.send(embed=tmp)
 
     @bot.command(name="cities")
+    @discord.ext.commands.check(process_check)
     async def cities(ctx):
         game_color = "#2A32D4"
 
