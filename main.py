@@ -5,7 +5,7 @@ import random
 from discord import Embed, Color
 
 from data import db_session
-from data.functions import registration_user, check_, profile_user
+from data.functions import registration_user, check_, profile_user, delete_user
 
 import discord
 from discord.ext import commands
@@ -93,6 +93,17 @@ def main():
 
         user: User = await profile_user(ctx.author.id)
         await ctx.send(embed=Embeds.profile_by_id(1, user=user))
+
+    @bot.command(name="delete_profile")
+    async def delete_profile(ctx):
+        if await check_user(ctx.author.id):
+            return
+        user: User = await profile_user(ctx.author.id)
+        await ctx.send(embed=Embeds.delete_profile(0, name=user.name))
+        answer = await standard_answer(ctx)
+        if answer == "ДА":
+            await delete_user(ctx.author.id)
+            await ctx.send(embed=Embeds.delete_profile(1, name=user.name))
 
     @bot.command(name="ping")
     async def ping(ctx):

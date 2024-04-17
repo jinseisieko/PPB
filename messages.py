@@ -59,3 +59,14 @@ class Embeds:
                          description=f"Имя:\t\t**{kwargs['user'].name}**\n"
                                      f"Статус:\t\t**{kwargs['user'].about}**\n",
                          color=Color.from_rgb(0, 255, 0))
+
+    @staticmethod
+    def delete_profile(number, *args, **kwargs):
+        if number == 0:
+            return Embed(title="Удаление профиля",
+                         description=f"Вы действительно хотите удалить профиль **{kwargs['name']}**",
+                         color=Color.from_rgb(255, 0, 0))
+        if number == 1:
+            return Embed(title="Удаление профиля",
+                         description=f"Профиль **{kwargs['name']}** удален",
+                         color=Color.from_rgb(0, 255, 0),)
