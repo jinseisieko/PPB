@@ -1,6 +1,8 @@
 import collections
 import json
 import random
+import time
+
 from discord import Embed, Color
 from data import db_session
 from data.functions import registration_user, check_, profile_user, delete_user
@@ -237,7 +239,8 @@ def main():
                         tmp = Embed(title=word, description=f"Этот город имеет население {city['population']} чел.\n"
                                                             f"Расположен на территории этого субъекта: {city['subject']}\n"
                                                             f"На координатах {city['coords']['lat']}, {city['coords']['lon']}\n"
-                                                            f"[Читать на википедии](https://ru.wikipedia.org/wiki/{word.replace(' ', '_')})",
+                                                            f"[Читать на википедии](https://ru.wikipedia.org/wiki/{word.replace(' ', '_')})"
+                                                            f"@everyone",
                                     colour=Color.from_str(game_color))
                         await ctx.send(embed=tmp)
                         previous = word
