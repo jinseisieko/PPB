@@ -1,18 +1,13 @@
 import collections
 import json
 import random
-
 from discord import Embed, Color
-
 from data import db_session
 from data.functions import registration_user, check_, profile_user, delete_user
-
 import discord
 from discord.ext import commands
 from config import config
-
 import logging
-
 from data.user import User
 from messages import Embeds
 
