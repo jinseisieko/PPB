@@ -19,3 +19,9 @@ class User(SqlAlchemyBase):
     city_record = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     city_avg_duration = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     special_points = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
+
+    # followed = db.relationship(
+    #     'User', secondary=followers,
+    #     primaryjoin=(followers.c.follower_id == id),
+    #     secondaryjoin=(followers.c.followed_id == id),
+    #     backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
