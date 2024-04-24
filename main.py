@@ -289,6 +289,7 @@ def main():
                         continue
                     else:
                         need = x.upper()
+                        break
                 await ctx.send(embed=Embeds.cities_game(5, need, counter))
             elif res == 3:
                 counter += 1
