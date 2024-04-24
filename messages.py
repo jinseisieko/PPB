@@ -10,8 +10,7 @@ class Embeds:
     def check_user():
         return Embed(title="Вы не зарегистрированы!",
                      description="Чтобы пользоваться командами вам необходимо зарегистрироваться\n"
-                                 "```.registration```\n"
-                                 "Напиши эту команду мне в личные сообщения!",
+                                 "`.registration` - напиши эту команду!",
                      color=Color.from_rgb(255, 0, 0))
 
     @staticmethod
@@ -51,7 +50,7 @@ class Embeds:
     def profile_by_id(number, *args, **kwargs):
         if number == 0:
             return Embed(title="Профиль не найден!",
-                         description=f"По id ```{kwargs['id']}``` профиль не найден.\n"
+                         description=f"По id `{kwargs['id']}` профиль не найден.\n"
                                      f"Видимо этот пользователь еще не создал профиль либо уже успел его удалить;)",
                          color=Color.from_rgb(255, 0, 0))
         if number == 1:
@@ -64,12 +63,70 @@ class Embeds:
     def delete_profile(number, *args, **kwargs):
         if number == 0:
             return Embed(title="Удаление профиля",
-                         description=f"Вы действительно хотите удалить профиль **{kwargs['name']}**",
+                         description=f"Вы действительно хотите удалить профиль **{kwargs['name']}**,\n"
+                                     f"Введите: `ДА`, чтобы удалить!",
                          color=Color.from_rgb(255, 0, 0))
         if number == 1:
             return Embed(title="Удаление профиля",
                          description=f"Профиль **{kwargs['name']}** удален",
                          color=Color.from_rgb(0, 255, 0), )
+
+    @staticmethod
+    def add_friend_by_id(number, *args, **kwargs):
+        if number == 0:
+            return Embed(title="Профиль не найден!",
+                         description=f"По id `{kwargs['id']}` профиль не найден.\n"
+                                     f"Видимо этот пользователь еще не создал профиль либо уже успел его удалить;)",
+                         color=Color.from_rgb(255, 0, 0))
+        if number == 1:
+            return Embed(title="Заявка в друзья",
+                         description=f"Пользователь под ником {kwargs['name']} отправил вам заявку в друзья\n"
+                                     f"Напишите `ДА`, чтобы принять!",
+                         color=Color.from_rgb(0, 255, 0))
+        if number == 2:
+            return Embed(title="Заявка в друзья",
+                         description=f"Пользователь под ником {kwargs['name']} принял вашу заявку в друзья",
+                         color=Color.from_rgb(0, 255, 0))
+        if number == 3:
+            return Embed(title="Заявка в друзья",
+                         description=f"Вы успешно приняли заявку в друзья!",
+                         color=Color.from_rgb(0, 255, 0))
+
+    @staticmethod
+    def is_friend_by_id(number, *args, **kwargs):
+        if number == 0:
+            return Embed(title="Профиль не найден!",
+                         description=f"По id `{kwargs['id']}` профиль не найден.\n"
+                                     f"Видимо этот пользователь еще не создал профиль либо уже успел его удалить;)",
+                         color=Color.from_rgb(255, 0, 0))
+
+        if number == 1:
+            return Embed(title="Вы в друзьях",
+                         description=f"Пользователь под ником {kwargs['name']} ваш друг!",
+                         color=Color.from_rgb(0, 255, 0))
+
+        if number == 2:
+            return Embed(title="Вы НЕ в друзьях",
+                         description=f"Пользователь под ником {kwargs['name']} НЕ ваш друг!",
+                         color=Color.from_rgb(255, 0, 0))
+
+    @staticmethod
+    def del_friend_by_id(number, *args, **kwargs):
+        if number == 0:
+            return Embed(title="Профиль не найден!",
+                         description=f"По id `{kwargs['id']}` профиль не найден.\n"
+                                     f"Видимо этот пользователь еще не создал профиль либо уже успел его удалить;)",
+                         color=Color.from_rgb(255, 0, 0))
+
+        if number == 1:
+            return Embed(title="Удалить друга",
+                         description=f"Хотите сделать пользователя под ником {kwargs['name']} НЕ вашим другом!\n"
+                                     f"Напишите `ДА`, чтобы принять!")
+
+        if number == 2:
+            return Embed(title="Удалить друга",
+                         description=f"Пользователь под ником {kwargs['name']} НЕ ваш друг!",
+                         color=Color.from_rgb(0, 255, 0))
 
     @staticmethod
     def coin_game(number, *args, **kwargs):
