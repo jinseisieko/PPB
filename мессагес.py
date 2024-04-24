@@ -1,7 +1,7 @@
 from discord import Embed, Color
 
 
-class Embeds:
+class Ембеды:
     @staticmethod
     def on_ready():
         return Embed(title="Bot Is Ready!!!", colour=Color.from_rgb(0, 255, 0))
@@ -146,7 +146,7 @@ class Embeds:
                                "1. Да\n", colour=Color.from_rgb(255, 215, 0))
 
     @staticmethod
-    def cities_game(number, *args, **kwargs):
+    def коин_гаме(number, *args, **kwargs):
         game_color = "#2A32D4"
         if number == 0:
             tmp = Embed(title="Давай играть в города России!", colour=Color.from_str(game_color))
@@ -198,9 +198,9 @@ class Embeds:
             return tmp
 
 
-class Messages:
+class Мессагес:
     @staticmethod
-    def coin_game(number, *args, **kwargs):
+    def коин_гаме(number, *args, **kwargs):
         if number == 0:
             return f'Действительно, ты прав!\n +{int(args[0].split()[1])} points!'
         if number == 1:
