@@ -8,7 +8,7 @@ from discord import Embed, Color
 import messages
 from data import db_session
 from data.functions import registration_user, check_, profile_user, delete_user, is_friend, add_friend, del_friend, \
-    del_all_friends, add_points, coin_game
+    del_all_friends, add_points, coin_game, cities_game
 import discord
 from discord.ext import commands
 from config import config
@@ -283,6 +283,8 @@ def main():
                         break
                 else:
                     await ctx.send(embed=Embeds.cities_game(3, score))
+                    await add_points(ctx.author.id, int(score))
+                    await cities_game(ctx.author.id, int(score))
 
                 score += 1
             elif res == 1:
@@ -304,6 +306,8 @@ def main():
 
             if counter == 3:
                 await ctx.send(embed=Embeds.cities_game(7, score))
+                await add_points(ctx.author.id, int(score))
+                await cities_game(ctx.author.id, int(score))
                 break
 
     bot.run(config['token'])

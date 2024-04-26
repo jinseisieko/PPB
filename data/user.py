@@ -16,6 +16,7 @@ class User(SqlAlchemyBase):
     coin_toss_games = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     coin_toss_wins = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     city_games = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
+    city_wins = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     city_record = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     city_avg_duration = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
     points = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)

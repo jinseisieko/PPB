@@ -120,5 +120,15 @@ async def coin_game(discord_id, accomplished):
         user.coin_toss_wins += 1
     db_sess.commit()
 
+
 async def cities_game(discord_id, n):
-    ...
+    db_sess = create_session()
+    user: User = db_sess.query(User).where(User.discord == discord_id).first()
+    if user.city_avg_duration < n:
+        user.wins += 1
+        user.city_wins += 1
+    user.city_avg_duration = (user.city_avg_duration * user.city_games + n) / (user.city_games + 1)
+    user.games += 1
+    user.city_games += 1
+    user.city_record = max(user.city_record, n)
+    db_sess.commit()
