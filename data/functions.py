@@ -18,14 +18,15 @@ async def registration_user(name, about, discord, ):
     db_sess.commit()
 
 
-async def profile_user(discord):
-    db_sess = create_session()
+async def profile_user(discord, db_sess=None):
+    if db_sess is None:
+        db_sess = create_session()
     users = db_sess.query(User).where(User.discord == discord).all()
     for user in users[1:]:
         db_sess.delete(user)
         db_sess.commit()
     db_sess = create_session()
-    user = db_sess.query(User).where(User.discord == discord).first()
+    user: User = db_sess.query(User).where(User.discord == discord).first()
     return user
 
 
@@ -51,7 +52,7 @@ async def delete_user(discord):
 async def is_friend(id_user, id_friend):
     db_sess = create_session()
     friends = db_sess.query(Friends).where(Friends.user_id == id_user).where(
-                Friends.friend_id == id_friend).all()
+        Friends.friend_id == id_friend).all()
     if len(friends) != 0:
         for friend in friends[1:]:
             db_sess.delete(friend)
@@ -78,3 +79,46 @@ async def del_friend(id_user, id_friend):
                 Friends.friend_id == id_friend).all():
             db_sess.delete(friend)
         db_sess.commit()
+
+
+async def del_all_friends(id_user):
+    db_sess = create_session()
+
+    for friend in db_sess.query(Friends).where(Friends.user_id == id_user):
+        db_sess.delete(friend)
+
+    for friend in db_sess.query(Friends).where(Friends.friend_id == id_user):
+        db_sess.delete(friend)
+    db_sess.commit()
+
+
+async def check_points(discord_id, n):
+    db_sess = create_session()
+    user: User = db_sess.query(User).where(User.discord == discord_id).first()
+    if user.points >= n:
+        return True
+    else:
+        return False
+
+
+async def add_points(discord_id, n):
+    db_sess = create_session()
+    user: User = db_sess.query(User).where(User.discord == discord_id).first()
+    user.points += n
+    if user.points < 0:
+        user.points = 0
+    db_sess.commit()
+
+
+async def coin_game(discord_id, accomplished):
+    db_sess = create_session()
+    user: User = db_sess.query(User).where(User.discord == discord_id).first()
+    user.games += 1
+    user.coin_toss_games += 1
+    if accomplished:
+        user.wins += 1
+        user.coin_toss_wins += 1
+    db_sess.commit()
+
+async def cities_game(discord_id, n):
+    ...
