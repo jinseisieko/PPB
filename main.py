@@ -180,6 +180,9 @@ def main():
 
     @bot.command(name="coin")
     async def heads_or_tails(ctx):
+        if await check_user(ctx.author.id):
+            return
+
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
 
@@ -220,6 +223,8 @@ def main():
 
     @bot.command(name="cities")
     async def cities(ctx):
+        if await check_user(ctx.author.id):
+            return
 
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
