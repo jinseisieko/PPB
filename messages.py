@@ -43,7 +43,10 @@ class Embeds:
     def profile(*args, **kwargs):
         return Embed(title="Твой профиль",
                      description=f"Имя:\t\t**{kwargs['user'].name}**\n"
-                                 f"Статус:\t\t**{kwargs['user'].about}**\n",
+                                 f"Статус:\t\t**{kwargs['user'].about}**\n"
+                                 f"Всего игр:\t\t**{kwargs['user'].games}**\n"
+                                 f"Всего побед:\t\t**{kwargs['user'].wins}**\n"
+                                 f"Очков на счету:\t\t**{kwargs['user'].points}**",
                      color=Color.from_rgb(0, 255, 0))
 
     @staticmethod
@@ -56,7 +59,10 @@ class Embeds:
         if number == 1:
             return Embed(title="Профиль",
                          description=f"Имя:\t\t**{kwargs['user'].name}**\n"
-                                     f"Статус:\t\t**{kwargs['user'].about}**\n",
+                                     f"Статус:\t\t**{kwargs['user'].about}**\n"
+                                     f"Всего игр:\t\t**{kwargs['user'].games}**\n"
+                                     f"Всего побед:\t\t**{kwargs['user'].wins}**\n"
+                                     f"Очков на счету:\t\t**{kwargs['user'].points}**",
                          color=Color.from_rgb(0, 255, 0))
 
     @staticmethod
