@@ -7,8 +7,7 @@ from discord import Embed, Color
 
 import messages
 from data import db_session
-from data.functions import registration_user, check_, profile_user, delete_user, is_friend, add_friend, del_friend, \
-    del_all_friends, add_points, coin_game, cities_game
+from data.functions import *
 import discord
 from discord.ext import commands
 from config import config
@@ -193,15 +192,15 @@ def main():
                     answer = await bot.wait_for('message', check=check)
                     answer = answer.content
                     real_result = random.randint(1, 2)
-                    if real_result == int(answer.split()[0]):
+                    answer = [int(answer.spit()[0]), check_points(ctx.author.id, int(answer.split()[1]))]
+                    if real_result == answer[0]:
                         await ctx.channel.send(Messages.coin_game(0, answer))
-                        await add_points(ctx.author.id, int(answer.split()[1]))
+                        await add_points(ctx.author.id, answer[1])
                         await coin_game(ctx.author.id, True)
-                    elif real_result != int(answer.split()[0]) and int(answer.split()[0]) in [1, 2]:
-                        await add_points(ctx.author.id, -int(answer.split()[1]))
+                    elif real_result != answer[0] and answer[0] in [1, 2]:
+                        await add_points(ctx.author.id, -answer[1])
                         await ctx.channel.send(Messages.coin_game(1, answer))
                         await coin_game(ctx.author.id, False)
-
                     else:
                         await ctx.channel.send(Messages.coin_game(2))
                         continue

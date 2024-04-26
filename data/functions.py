@@ -95,10 +95,7 @@ async def del_all_friends(id_user):
 async def check_points(discord_id, n):
     db_sess = create_session()
     user: User = db_sess.query(User).where(User.discord == discord_id).first()
-    if user.points >= n:
-        return True
-    else:
-        return False
+    return min(user.points, n) if user.points >= 0 else 0
 
 
 async def add_points(discord_id, n):

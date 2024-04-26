@@ -168,7 +168,7 @@ class Embeds:
                                     "Все названия в именительном падеже\n"
                                     "Если нет города ни на одну букву в названии, засчитывается поражение\n"
                                     "Три города, названных не по правилам - поражение\n"
-                                    "Когда я не могу ответить, засчитыается победаа**",
+                                    "Когда городов названо больше среднего, засчитвается победа**",
                         colour=Color.from_str(game_color))
             return tmp
         if number == 2:
@@ -198,7 +198,7 @@ class Embeds:
                         colour=Color.from_str(game_color))
             return tmp
         if number == 7:
-            tmp = Embed(title="Твоих знаний не достаточно, чтобы обыграть меня! Ты проиграл!",
+            tmp = Embed(title="Игра сделал бум!",
                         description=f"**Игра завершена со счётом: {args[0]}**",
                         colour=Color.from_str(game_color))
             return tmp
@@ -208,8 +208,8 @@ class Messages:
     @staticmethod
     def coin_game(number, *args, **kwargs):
         if number == 0:
-            return f'Действительно, ты прав!\n +{int(args[0].split()[1])} points!'
+            return f'Действительно, ты прав!\n +{args[0][1]} points!'
         if number == 1:
-            return f'Нет, ты не угадал!\n -{int(args[0].split()[1])} points!'
+            return f'Нет, ты не угадал!\n -{args[0][1]} points!'
         if number == 2:
             return 'Я не понимаю. Введи только то, что нужно'
