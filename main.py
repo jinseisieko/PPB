@@ -107,10 +107,11 @@ def main():
 
     @bot.command(name="add_friend_by_id")
     async def add_friend_by_id(ctx, id_):
+        """tu-turu"""
         if await check_user(ctx.author.id):
             return
         if await check_user(id_, message=False):
-            await ctx.send(embed=Embeds.add_friend_(0, id=id_))
+            await ctx.send(embed=Embeds.add_friend_by_id(0, id=id_))
             return
 
         user: User = await profile_user(ctx.author.id)
@@ -118,7 +119,7 @@ def main():
 
         d_user = await bot.fetch_user(user.discord)
         d_friend = await bot.fetch_user(friend.discord)
-        await d_friend.send(embed=Embeds.add_friend_(1, name=user.name))
+        await d_friend.send(embed=Embeds.add_friend_by_id(1, name=user.name))
 
         def check(m):
             return m.author.id == friend.discord and isinstance(m.channel, discord.channel.DMChannel)
