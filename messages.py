@@ -46,7 +46,13 @@ class Embeds:
                                  f"Статус:\t\t**{kwargs['user'].about}**\n"
                                  f"Всего игр:\t\t**{kwargs['user'].games}**\n"
                                  f"Всего побед:\t\t**{kwargs['user'].wins}**\n"
-                                 f"Очков на счету:\t\t**{kwargs['user'].points}**",
+                                 f"Очков на счету:\t\t**{kwargs['user'].points}**\n"
+                                 f"Игр в **coin**:\t\t**{kwargs['user'].coin_toss_games}**\n"
+                                 f"Побед в **coin**:\t\t**{kwargs['user'].coin_toss_wins}**\n"
+                                 f"Игр в **cities**:\t\t**{kwargs['user'].city_games}**\n"
+                                 f"Рекорд в **cities**:\t\t**{kwargs['user'].city_games}**\n"
+                                 f"Средняя продолжительность в **cities**:\t\t**{kwargs['user'].city_avg_duration}**\n"
+                                 f"Побед в **cities**:\t\t**{kwargs['user'].city_wins}**",
                      color=Color.from_rgb(0, 255, 0))
 
     @staticmethod
@@ -57,14 +63,19 @@ class Embeds:
                                      f"Видимо этот пользователь еще не создал профиль либо уже успел его удалить;)",
                          color=Color.from_rgb(255, 0, 0))
         if number == 1:
-            return Embed(title="Профиль",
+            return Embed(title="Твой профиль",
                          description=f"Имя:\t\t**{kwargs['user'].name}**\n"
                                      f"Статус:\t\t**{kwargs['user'].about}**\n"
                                      f"Всего игр:\t\t**{kwargs['user'].games}**\n"
                                      f"Всего побед:\t\t**{kwargs['user'].wins}**\n"
-                                     f"Очков на счету:\t\t**{kwargs['user'].points}**",
+                                     f"Очков на счету:\t\t**{kwargs['user'].points}**\n"
+                                     f"Игр в **coin**:\t\t**{kwargs['user'].coin_toss_games}**\n"
+                                     f"Побед в **coin**:\t\t**{kwargs['user'].coin_toss_wins}**\n"
+                                     f"Игр в **cities**:\t\t**{kwargs['user'].city_games}**\n"
+                                     f"Рекорд в **cities**:\t\t**{kwargs['user'].city_games}**\n"
+                                     f"Средняя продолжительность в **cities**:\t\t**{kwargs['user'].city_avg_duration}**\n"
+                                     f"Побед в **cities**:\t\t**{kwargs['user'].city_wins}**",
                          color=Color.from_rgb(0, 255, 0))
-
     @staticmethod
     def delete_profile(number, *args, **kwargs):
         if number == 0:
