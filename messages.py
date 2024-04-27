@@ -210,8 +210,15 @@ class Embeds:
                         colour=Color.from_str(game_color))
             return tmp
         if number == 7:
-            tmp = Embed(title="Игра сделал бум!",
+            tmp = Embed(title="Игра сделала бум!",
                         description=f"**Игра завершена со счётом: {args[0]}**",
+                        colour=Color.from_str(game_color))
+            return tmp
+        if number == 8:
+            tmp = Embed(title=f"Ваш город - " + args[0], description=f"Этот город имеет население {args[1]['population']} чел.\n"
+                                                   f"Расположен на территории этого субъекта: {args[1]['subject']}\n"
+                                                   f"На координатах {args[1]['coords']['lat']}, {args[1]['coords']['lon']}\n"
+                                                   f"[Читать на википедии](https://ru.wikipedia.org/wiki/{args[0].replace(' ', '_')})",
                         colour=Color.from_str(game_color))
             return tmp
 

@@ -194,8 +194,10 @@ def main():
                 try:
                     answer = await bot.wait_for('message', check=check)
                     answer = answer.content
+                    if not await check_valid_message(answer):
+                        return
                     real_result = random.randint(1, 2)
-                    answer = [int(answer.spit()[0]), check_points(ctx.author.id, int(answer.split()[1]))]
+                    answer = [int(answer.split()[0]), await check_points(ctx.author.id, int(answer.split()[1]))]
                     if real_result == answer[0]:
                         await ctx.channel.send(Messages.coin_game(0, answer))
                         await add_points(ctx.author.id, answer[1])
@@ -214,6 +216,8 @@ def main():
             await ctx.channel.send(embed=Embeds.coin_game(2))
             answer = await bot.wait_for('message', check=check)
             answer = answer.content
+            if not await check_valid_message(answer):
+                return
             try:
                 if 1 == int(answer.split()[0]):
                     continue
@@ -244,7 +248,6 @@ def main():
                     else:
                         for u in cities[0][x]:
                             if word == u["name"]:
-                                del cities[0][x][cities[0][x].index(u)]
                                 was.add(word)
                                 return 0
                         else:
@@ -266,12 +269,22 @@ def main():
         while True:
             answer = await bot.wait_for('message', check=check)
             answer = answer.content
+            if not await check_valid_message(answer):
+                return
+
             res = check_rules(cities, was, previous, answer)
             tmp_previous = answer
             # time.sleep(0)
             # res = 0
             # tmp_previous = previous
             if res == 0:
+                res = ""
+                for y in cities[0][answer[0]]:
+                    if y['name'] == answer:
+                        res = y
+                        break
+                await ctx.send(embed=Embeds.cities_game(8, answer, res))
+                del cities[0][answer[0]][cities[0][answer[0]].index(res)]
                 previous = tmp_previous
                 for x in reversed(previous.upper()):
                     if len(cities[0][x]) == 0:
@@ -289,6 +302,7 @@ def main():
                     await ctx.send(embed=Embeds.cities_game(3, score))
                     await add_points(ctx.author.id, int(score))
                     await cities_game(ctx.author.id, int(score))
+                    break
 
                 score += 1
             elif res == 1:
