@@ -248,7 +248,6 @@ def main():
                     else:
                         for u in cities[0][x]:
                             if word == u["name"]:
-                                del cities[0][x][cities[0][x].index(u)]
                                 was.add(word)
                                 return 0
                         else:
@@ -272,12 +271,20 @@ def main():
             answer = answer.content
             if not await check_valid_message(answer):
                 return
+
             res = check_rules(cities, was, previous, answer)
             tmp_previous = answer
             # time.sleep(0)
             # res = 0
             # tmp_previous = previous
             if res == 0:
+                res = ""
+                for y in cities[0][answer[0]]:
+                    if y['name'] == answer:
+                        res = y
+                        break
+                await ctx.send(embed=Embeds.cities_game(8, answer, res))
+                del cities[0][answer[0]][cities[0][answer[0]].index(res)]
                 previous = tmp_previous
                 for x in reversed(previous.upper()):
                     if len(cities[0][x]) == 0:
@@ -288,12 +295,6 @@ def main():
                         was.add(word)
                         del cities[0][x][cities[0][x].index(city)]
 
-                        res = ""
-                        for y in cities[0][answer[0]]:
-                            if y["name"] == answer:
-                                res = y
-                                break
-                        await ctx.send(embed=Embeds.cities_game(8, answer, res))
                         await ctx.send(embed=Embeds.cities_game(2, word, city))
                         previous = word
                         break
@@ -301,6 +302,7 @@ def main():
                     await ctx.send(embed=Embeds.cities_game(3, score))
                     await add_points(ctx.author.id, int(score))
                     await cities_game(ctx.author.id, int(score))
+                    break
 
                 score += 1
             elif res == 1:
