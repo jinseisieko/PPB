@@ -50,7 +50,7 @@ class Embeds:
                                  f"Игр в **coin**:\t\t**{kwargs['user'].coin_toss_games}**\n"
                                  f"Побед в **coin**:\t\t**{kwargs['user'].coin_toss_wins}**\n"
                                  f"Игр в **cities**:\t\t**{kwargs['user'].city_games}**\n"
-                                 f"Рекорд в **cities**:\t\t**{kwargs['user'].city_games}**\n"
+                                 f"Рекорд в **cities**:\t\t**{kwargs['user'].city_record}**\n"
                                  f"Средняя продолжительность в **cities**:\t\t**{kwargs['user'].city_avg_duration}**\n"
                                  f"Побед в **cities**:\t\t**{kwargs['user'].city_wins}**",
                      color=Color.from_rgb(0, 255, 0))
@@ -72,10 +72,11 @@ class Embeds:
                                      f"Игр в **coin**:\t\t**{kwargs['user'].coin_toss_games}**\n"
                                      f"Побед в **coin**:\t\t**{kwargs['user'].coin_toss_wins}**\n"
                                      f"Игр в **cities**:\t\t**{kwargs['user'].city_games}**\n"
-                                     f"Рекорд в **cities**:\t\t**{kwargs['user'].city_games}**\n"
+                                     f"Рекорд в **cities**:\t\t**{kwargs['user'].city_record}**\n"
                                      f"Средняя продолжительность в **cities**:\t\t**{kwargs['user'].city_avg_duration}**\n"
                                      f"Побед в **cities**:\t\t**{kwargs['user'].city_wins}**",
                          color=Color.from_rgb(0, 255, 0))
+
     @staticmethod
     def delete_profile(number, *args, **kwargs):
         if number == 0:
