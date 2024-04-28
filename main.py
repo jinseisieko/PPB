@@ -17,18 +17,20 @@ from messages import *
 
 
 def main():
-    logger = logging.getLogger('discord')
+    logger = logging.getLogger("discord")
     logger.setLevel(logging.DEBUG)
     handler = logging.StreamHandler()
-    handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+    handler.setFormatter(
+        logging.Formatter("%(asctime)s:%(levelname)s:%(name)s: %(message)s")
+    )
     logger.addHandler(handler)
 
     intents = discord.Intents.default()
     intents.message_content = True
-    bot = commands.Bot(command_prefix='.', intents=intents)
+    bot = commands.Bot(command_prefix=".", intents=intents)
 
     async def check_valid_message(content):
-        if content.startswith('.'):
+        if content.startswith("."):
             return False
         return True
 
@@ -45,14 +47,14 @@ def main():
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
 
-        answer = await bot.wait_for('message', check=check, timeout=30)
+        answer = await bot.wait_for("message", check=check, timeout=30)
         answer = answer.content
         return answer
 
     @bot.event
     async def on_ready():
         logger.info("Bot Is Ready!!!")
-        user = await bot.fetch_user(config['user_id'])
+        user = await bot.fetch_user(config["user_id"])
         await user.send(embed=Embeds.on_ready())
 
     @bot.command(name="registration")
@@ -123,9 +125,11 @@ def main():
         await d_friend.send(embed=Embeds.add_friend_by_id(1, name=user.name))
 
         def check(m):
-            return m.author.id == friend.discord and isinstance(m.channel, discord.channel.DMChannel)
+            return m.author.id == friend.discord and isinstance(
+                m.channel, discord.channel.DMChannel
+            )
 
-        answer = await bot.wait_for('message', check=check)
+        answer = await bot.wait_for("message", check=check)
         answer = answer.content
         if not await check_valid_message(answer):
             return
@@ -176,7 +180,7 @@ def main():
         if await check_user(ctx.author.id):
             return
 
-        await ctx.send('pong')
+        await ctx.send("pong")
 
     @bot.command(name="coin")
     async def heads_or_tails(ctx):
@@ -192,12 +196,15 @@ def main():
 
             while True:
                 try:
-                    answer = await bot.wait_for('message', check=check)
+                    answer = await bot.wait_for("message", check=check)
                     answer = answer.content
                     if not await check_valid_message(answer):
                         return
                     real_result = random.randint(1, 2)
-                    answer = [int(answer.split()[0]), await check_points(ctx.author.id, int(answer.split()[1]))]
+                    answer = [
+                        int(answer.split()[0]),
+                        await check_points(ctx.author.id, int(answer.split()[1])),
+                    ]
                     if real_result == answer[0]:
                         await ctx.channel.send(Messages.coin_game(0, answer))
                         await add_points(ctx.author.id, answer[1])
@@ -214,7 +221,7 @@ def main():
                     await ctx.channel.send(Messages.coin_game(2))
                     continue
             await ctx.channel.send(embed=Embeds.coin_game(2))
-            answer = await bot.wait_for('message', check=check)
+            answer = await bot.wait_for("message", check=check)
             answer = answer.content
             if not await check_valid_message(answer):
                 return
@@ -267,7 +274,7 @@ def main():
         previous = "_"
 
         while True:
-            answer = await bot.wait_for('message', check=check)
+            answer = await bot.wait_for("message", check=check)
             answer = answer.content
             if not await check_valid_message(answer):
                 return
@@ -280,7 +287,7 @@ def main():
             if res == 0:
                 res = ""
                 for y in cities[0][answer[0]]:
-                    if y['name'] == answer:
+                    if y["name"] == answer:
                         res = y
                         break
                 await ctx.send(embed=Embeds.cities_game(8, answer, res))
@@ -291,7 +298,7 @@ def main():
                         continue
                     else:
                         city = random.choice(cities[0][x])
-                        word = city['name']
+                        word = city["name"]
                         was.add(word)
                         del cities[0][x][cities[0][x].index(city)]
 
@@ -328,9 +335,9 @@ def main():
                 await cities_game(ctx.author.id, int(score))
                 break
 
-    bot.run(config['token'])
+    bot.run(config["token"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     db_session.global_init("db/PPB.db")
     main()

@@ -3,10 +3,9 @@ from .db_session import SqlAlchemyBase
 
 
 class User(SqlAlchemyBase):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
-    id = sqlalchemy.Column(sqlalchemy.Integer,
-                           primary_key=True, autoincrement=True)
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     discord = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, unique=True)

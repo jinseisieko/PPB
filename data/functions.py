@@ -3,7 +3,11 @@ from .friends import Friends
 from .db_session import create_session
 
 
-async def registration_user(name, about, discord, ):
+async def registration_user(
+    name,
+    about,
+    discord,
+):
     db_sess = create_session()
     users = db_sess.query(User).where(User.discord == discord).all()
     if len(users) != 0:
@@ -51,8 +55,12 @@ async def delete_user(discord):
 
 async def is_friend(id_user, id_friend):
     db_sess = create_session()
-    friends = db_sess.query(Friends).where(Friends.user_id == id_user).where(
-        Friends.friend_id == id_friend).all()
+    friends = (
+        db_sess.query(Friends)
+        .where(Friends.user_id == id_user)
+        .where(Friends.friend_id == id_friend)
+        .all()
+    )
     if len(friends) != 0:
         for friend in friends[1:]:
             db_sess.delete(friend)
@@ -75,8 +83,12 @@ async def add_friend(id_user, id_friend):
 async def del_friend(id_user, id_friend):
     if await is_friend(id_user, id_friend):
         db_sess = create_session()
-        for friend in db_sess.query(Friends).where(Friends.user_id == id_user).where(
-                Friends.friend_id == id_friend).all():
+        for friend in (
+            db_sess.query(Friends)
+            .where(Friends.user_id == id_user)
+            .where(Friends.friend_id == id_friend)
+            .all()
+        ):
             db_sess.delete(friend)
         db_sess.commit()
 
@@ -124,7 +136,9 @@ async def cities_game(discord_id, n):
     if user.city_avg_duration < n:
         user.wins += 1
         user.city_wins += 1
-    user.city_avg_duration = (user.city_avg_duration * user.city_games + n) / (user.city_games + 1)
+    user.city_avg_duration = (user.city_avg_duration * user.city_games + n) / (
+        user.city_games + 1
+    )
     user.games += 1
     user.city_games += 1
     user.city_record = max(user.city_record, n)

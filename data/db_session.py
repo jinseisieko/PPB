@@ -3,7 +3,6 @@ import sqlalchemy.orm as orm
 from sqlalchemy.orm import Session
 
 
-
 SqlAlchemyBase = orm.declarative_base()
 
 __factory: [type, None] = None
@@ -18,11 +17,12 @@ def global_init(db_file):
     if not db_file or not db_file.strip():
         raise Exception("empty name")
 
-    conn_str = f'sqlite:///{db_file.strip()}?check_same_thread=False'
+    conn_str = f"sqlite:///{db_file.strip()}?check_same_thread=False"
     engine = sa.create_engine(conn_str, echo=True)
     __factory = orm.sessionmaker(bind=engine)
 
     from . import __all_models
+
     _ = repr(__all_models)
 
     SqlAlchemyBase.metadata.create_all(engine)
